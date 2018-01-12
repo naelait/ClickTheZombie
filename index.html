@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Coockie clicker !</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <meter class="life-bar" min ="0" max ="100" value="" id = "barreDeVie"></meter>
+      </div>
+      <div class="items">
+        <button type="button" name="button" id="multiplier" onclick="augmenterMultiplicateur()"></button>
+        <button type="button" name="button" id="autoClic" onclick="clicAuto()"></button>
+      </div>
+      <div class="randomboost">
+        <img src="assets/img/powerboost.png" id="superBoost" onclick="powerBoost()"></img>
+      </div>
+      <div class="money" id="affichage">
+        0€
+      </div>
+      <div class="zombie">
+        <img id="clic" onclick="clicker()"  src="assets/img/zombie.png" alt="">
+      </div>
+    </div>
+      <script src="assets/js/clicker.js"></script>
+  </body>
+</html>
