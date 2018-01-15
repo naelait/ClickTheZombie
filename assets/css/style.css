@@ -1,40 +1,63 @@
-.life-bar {
-  width: 100%
+body {
+  background-image: url("../img/cover.jpg");
+  background-size:cover;
 }
-.container{
-  width: 700px;
-  height: 350px;
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px 350px;
   background-image: url("../img/background.png");
   background-size: cover;
+  border: 2px black solid;
+}
+.life-bar {
+  width: 100%;
+  grid-row: 1 / span 1;
+  grid-column: 2 / span 1;
 }
 div.zombie img{
-  margin-top: 150px;
-  position: absolute;
-  left:20px;
+  position: relative;
+  left: 5px;
+  top: 220px;
+  width: 50px;
+  height: auto;
 }
+
 .money{
-  float: left;
+  grid-row: 1 / span 1;
+  grid-column: 3 / span 1;
   color: gold;
-  margin-left: 20px;
+  text-align: right;
+  margin-right: 30px;
 }
 .zombie{
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
+  grid-row: 2 / span 1;
+  grid-column: 1 / span 3;
 }
 .items{
-  margin-left: 20px;
-}
-#superBoost{
-  width:30px;
-  height:30px;
-  display: none;
-  position: absolute;
+  width: 80%;
+
 }
 .randomboost{
-  width:480px;
-  height: 225px;
-  margin-left: 120px;
-  margin-top: 100px;
-  position: absolute;
+  grid-row: 2 / span 1;
+  grid-column: 1 / span  3;
+}
+#superBoost{
+  width: 30px;
+  height: 30px;
+  display: none;
+}
+.randomboost{
+  grid-row: 2 / span 1;
+  grid-column: 1 / span  3;
+  text-align: center;
+}
+.level {
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+  color: red;
+  margin-left: 30px;
 }

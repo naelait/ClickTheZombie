@@ -2,17 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Coockie clicker !</title>
+    <title>Click The Zombie !</title>
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
     <div class="container">
-      <div>
-        <meter class="life-bar" min ="0" max ="100" value="" id = "barreDeVie"></meter>
+      <div id="js-level" class="level">
+
       </div>
-      <div class="items">
-        <button type="button" name="button" id="multiplier" onclick="augmenterMultiplicateur()"></button>
-        <button type="button" name="button" id="autoClic" onclick="clicAuto()"></button>
+      <div class="life-bar">
+        <meter class="life-bar" min ="0" max ="100" value="100" id = "barreDeVie"></meter>
       </div>
       <div class="randomboost">
         <img src="assets/img/powerboost.png" id="superBoost" onclick="powerBoost()"></img>
@@ -23,6 +22,10 @@
       <div class="zombie">
         <img id="clic" onclick="clicker()"  src="assets/img/zombie.png" alt="">
       </div>
+    </div>
+    <div class="items">
+      <button type="button" name="button" id="multiplier" onclick="augmenterMultiplicateur()"></button>
+      <button type="button" name="button" id="autoClic" onclick="clicAuto()"></button>
     </div>
       <script src="assets/js/clicker.js"></script>
   </body>

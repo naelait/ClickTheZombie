@@ -1,9 +1,11 @@
-const button = document.getElementById("clic");
+const basicZombie = document.getElementById("clic");
+const zombieDiv = document.getElementsByClassName("zombie")[0];
 const display = document.getElementById("affichage");
-var boost = document.getElementById("multiplier");
-var clic = document.getElementById("autoClic");
-var ultimate = document.getElementById("superBoost");
-var bdv = document.getElementById("barreDeVie")
+const boost = document.getElementById("multiplier");
+const clic = document.getElementById("autoClic");
+const ultimate = document.getElementById("superBoost");
+const bdv = document.getElementById("barreDeVie")
+const level = document.getElementById("js-level")
 var lvl = 1;
 var multiplicateur = 1;
 var pdv = 100 + lvl * 5;
@@ -11,7 +13,14 @@ var score = 0;
 var price = 5;
 var ult = 1;
 var i = 12;
-var x = 1;
+var x = 5;
+var path = 0;
+
+level.innerText = `Level: ${lvl}`
+
+basicZombie.ondragstart = function() { return false; };
+zombieDiv.ondragstart = function() { return false; };
+
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -23,8 +32,6 @@ ultimate.innerHTML = `ULTIMATE : 5000€`;
 
 function clicker(){
   var y = getRandomInt(150)
-  console.log(i);
-  console.log(y);
   var atq = 4 + (4)*multiplicateur;
   score = score + 1*multiplicateur * ult;
   display.innerHTML = `${score}€`;
@@ -36,12 +43,14 @@ function clicker(){
   }
   pdv = pdv - atq;
   if (pdv <= 0) {
+    x = 5
+    basicZombie.style.left = `${x}px`
     lvl++;
+    level.innerText = `Level: ${lvl}`
     bdv.max = pdv = 100 + lvl * lvl * lvl;
-    x = 20
+    bdv.value = bdv.max
   }
   if (i === y) {
-  console.log("POWER UP !!")
   ultimate.style.display = "inline";
   ultimate.style.top = getRandomInt(150)+"px"
   ultimate.style.right = getRandomInt(300)+"px"
@@ -65,6 +74,7 @@ function clicAuto(){
   if (score >= 500){
     setInterval(function autoClick(){
       score ++
+      bdv.value = bdv.value - 1 * multiplicateur
       display.innerHTML = `${score}€`;
     },1000)
     score = score - 500;
@@ -80,22 +90,23 @@ function powerBoost(){
       ult = 1;
     }, 10000);
   }
+function move (){
+  x += 1
+  path += 1
+  if (path > 9 ){
+    path = 1;
+  }
 
+  basicZombie.style.left= `${x}px`
+  basicZombie.src = `assets/img/walk/go_${path}.png`
+  console.log(basicZombie.src)
+  if (x < 980){
+    requestAnimationFrame(move);
+  }else {
+    basicZombie.style.display= "none";
+
+  }
+}
 boost.style.display = "none";
 
-function moveZombie(){
-  setInterval(function move(){
-    if (x <= 660){
-      x=x+20
-      button.style.left = x+"px"
-    }
-    if (x > 660){
-      button.style.display = "none"
-      document.getElementsByClassName("randomboost")[0].innerHTML = "YOU LOOSE !!!"
-      document.getElementsByClassName("randomboost")[0].style.color = "red";
-      document.getElementsByClassName("randomboost")[0].style.left = "180px";
-      document.getElementsByClassName("randomboost")[0].style.top = "120px";
-    }
-},650);
-}
-  moveZombie()
+  move()
