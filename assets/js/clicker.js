@@ -91,22 +91,20 @@ function powerBoost(){
     }, 10000);
   }
 function move (){
-  x += 1
-  path += 1
-  if (path > 9 ){
-    path = 1;
-  }
-
+  x += 0.5
   basicZombie.style.left= `${x}px`
-  basicZombie.src = `assets/img/walk/go_${path}.png`
-  console.log(basicZombie.src)
   if (x < 980){
     requestAnimationFrame(move);
   }else {
     basicZombie.style.display= "none";
-
+    document.getElementsByClassName("defeat")[0].style.display = "inline"
   }
 }
+
+function recommencer(){
+    location.reload()
+  }
+
 boost.style.display = "none";
 
-  move()
+move()
