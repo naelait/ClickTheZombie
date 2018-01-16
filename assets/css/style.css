@@ -3,7 +3,7 @@ body {
   background-size:cover;
 }
 .container {
-  width: 80%;
+  max-width:1020px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
