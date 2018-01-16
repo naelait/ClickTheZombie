@@ -15,6 +15,7 @@ var ult = 1;
 var i = 12;
 var x = 5;
 var path = 0;
+var spawn = 0;
 
 level.innerText = `Level: ${lvl}`
 
@@ -93,8 +94,8 @@ function powerBoost(){
 function move (){
   x += 0.5
   basicZombie.style.left= `${x}px`
-  if (x < 980){
-    requestAnimationFrame(move);
+    if (x < 980){
+    setTimeout(requestAnimationFrame(move), 3000);
   }else {
     basicZombie.style.display= "none";
     document.getElementsByClassName("defeat")[0].style.display = "inline"
@@ -107,4 +108,14 @@ function recommencer(){
 
 boost.style.display = "none";
 
-move()
+function spawning(){
+  basicZombie.src = "assets/img/appear/appear.gif"
+}
+
+function appear(){
+    basicZombie.src = "assets/img/walk/walk.gif"
+}
+
+setTimeout(appear, 3100)
+spawning()
+setTimeout(move, 3300)
