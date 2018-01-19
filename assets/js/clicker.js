@@ -1,11 +1,3 @@
-const basicZombie = document.getElementById("clic");
-const zombieDiv = document.getElementsByClassName("zombie")[0];
-const display = document.getElementById("affichage");
-const boost = document.getElementById("multiplier");
-const clic = document.getElementById("autoClic");
-const ultimate = document.getElementById("superBoost");
-const bdv = document.getElementById("barreDeVie")
-const level = document.getElementById("js-level")
 var lvl = 1;
 var multiplicateur = 1;
 var pdv = 100 + lvl * 5;
@@ -14,48 +6,49 @@ var price = 5;
 var ult = 1;
 var i = 12;
 var x = 5;
-var path = 0;
-var spawn = 0;
-
-level.innerText = `Level: ${lvl}`
-
-basicZombie.ondragstart = function() { return false; };
-zombieDiv.ondragstart = function() { return false; };
-
+var speed = 30000
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-boost.innerHTML = `x${multiplicateur} : ${5*multiplicateur}€`;
-clic.innerHTML = `Auto Clic : 500€`;
-ultimate.innerHTML = `ULTIMATE : 5000€`;
-
 function clicker(){
+  if (document.getElementById("clic").src == "file:///home/user/Bureau/Exercices/cookieClicker/assets/img/appear/appear.gif"){
+    var atq = 0
+  }else {
+    var atq = 4 + (4)*multiplicateur;
+      score = score + 1*multiplicateur * ult;
+  }
   var y = getRandomInt(150)
-  var atq = 4 + (4)*multiplicateur;
-  score = score + 1*multiplicateur * ult;
-  display.innerHTML = `${score}€`;
-  bdv.value = pdv - atq
+  $('#affichage').html(`${score}€`);
+  $('#barreDeVie').attr("value", pdv - atq);
   if (score >= price){
-    boost.style.display = "inline";
+    $('#multiplier').css("display", "inline");
   }else if (score < price){
-    boost.style.display = "none";
+    $('#multiplier').css("display", "none");
   }
   pdv = pdv - atq;
   if (pdv <= 0) {
+    clearTimeout(appearTime)
+    clearTimeout(moveTime)
+    $('#clic').stop(true);
     x = 5
-    basicZombie.style.left = `${x}px`
+    setTimeout(appear, 3100)
+    spawning()
+    setTimeout(move, 3100)
+    $('#clic').css("left", `${x}px`)
     lvl++;
-    level.innerText = `Level: ${lvl}`
-    bdv.max = pdv = 100 + lvl * lvl * lvl;
-    bdv.value = bdv.max
+    $('#js-level').html(`Level: ${lvl}`);
+    $('#barreDeVie').attr("max", pdv = 100 + lvl * lvl * lvl);
+    $('#barreDeVie').attr("value", $('#barreDeVie').max);
+    clearTimeout(appearTime)
+    clearTimeout(moveTime)
   }
   if (i === y) {
-  ultimate.style.display = "inline";
-  ultimate.style.top = getRandomInt(150)+"px"
-  ultimate.style.right = getRandomInt(300)+"px"
-}
+    $('#superBoost').css("display", "inline");
+    $('#superBoost').css("top", getRandomInt(150)+"px");
+    $('#superBoost').css("right", getRandomInt(300)+"px");
+  }
 }
 
 function augmenterMultiplicateur(){
@@ -63,11 +56,11 @@ function augmenterMultiplicateur(){
   multiplicateur++;
   score = score-price;
   price = price * 2;
-  display.innerHTML = `${score}€`;
+  $('#affichage').html(`${score}€`)
 }
-  boost.innerHTML = `x${multiplicateur} : ${price}€`
+  $('#multiplier').html(`x${multiplicateur} : ${price}€`)
   if (score < price){
-    boost.style.display = "none";
+    $('#multiplier').css("display", "none");
   }
 }
 
@@ -75,47 +68,61 @@ function clicAuto(){
   if (score >= 500){
     setInterval(function autoClick(){
       score ++
-      bdv.value = bdv.value - 1 * multiplicateur
-      display.innerHTML = `${score}€`;
+      $('#barreDeVie').value = $('#barreDeVie').value - 1 * multiplicateur
+      $('#affichage').html(`${score}€`);
     },1000)
     score = score - 500;
-    clic.style.display = "none"
+    $('#autoClic').css("display", "none")
   }
-  display.innerHTML = `${score}€`;
+  $('#affichage').html(`${score}€`);
 }
 
 function powerBoost(){
-    ultimate.style.display = "none";
+    $('#superBoost').css("display", "none")
     ult = 2;
     setTimeout(function pressR(){
       ult = 1;
     }, 10000);
   }
 function move (){
-  x += 0.5
-  basicZombie.style.left= `${x}px`
-    if (x < 980){
-    setTimeout(requestAnimationFrame(move), 3000);
-  }else {
-    basicZombie.style.display= "none";
-    document.getElementsByClassName("defeat")[0].style.display = "inline"
-  }
+  $('#clic').animate({
+      left: 970
+  }, speed, "linear")
+  setTimeout(function() {
+    if (parseInt($('#clic').css('left')) > 960){
+      $('#clic').css("display", "none");
+      $(".defeat").css("display", "inline");
+    }
+  }, speed)
 }
-
 function recommencer(){
     location.reload()
   }
 
-boost.style.display = "none";
+$('#multiplier').css("display", "none");
 
 function spawning(){
-  basicZombie.src = "assets/img/appear/appear.gif"
+  $('#clic').attr("src", "assets/img/appear/appear.gif");
 }
 
 function appear(){
-    basicZombie.src = "assets/img/walk/walk.gif"
+    $('#clic').attr("src", "assets/img/walk/walk.gif");
 }
 
-setTimeout(appear, 3100)
+var appearTime = setTimeout(appear, 3300)
+var moveTime = setTimeout(move, 3300)
+appearTime
 spawning()
-setTimeout(move, 3300)
+moveTime
+
+
+$('#js-level').html(`Level: ${lvl}`);
+$('#multiplier').html(`x${multiplicateur} : ${5*multiplicateur}€`);
+$('#autoClic').html(`Auto Clic : 500€`);
+$('#superBoost').html(`ULTIMATE : 5000€`);
+
+$('#clic').click(clicker);
+$('#retry').click(recommencer);
+$('#multiplier').click(augmenterMultiplicateur);
+$('#autoClic').click(clicAuto);
+$('#superBoost').click(powerBoost);

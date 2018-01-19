@@ -15,27 +15,27 @@
       </div>
       <div class="defeat">
         <p>You lose !</p>
-        <button type="button" name="button" onclick="recommencer()"> Try Again !</button>
+        <button id="retry" type="button" name="button"> Try Again !</button>
       </div>
       <div class="randomboost">
-        <img src="assets/img/powerboost.png" id="superBoost" onclick="powerBoost()"></img>
+        <img src="assets/img/powerboost.png" id="superBoost"></img>
       </div>
       <div class="money" id="affichage">
         0€
       </div>
       <div class="zombie">
-        <img id="clic" onclick="clicker()"  src="" alt="">
+        <img id="clic">
       </div>
     </div>
     <div class="items">
-      <button type="button" name="button" id="multiplier" onclick="augmenterMultiplicateur()"></button>
-      <button type="button" name="button" id="autoClic" onclick="clicAuto()"></button>
+      <button type="button" name="button" id="multiplier"></button>
+      <button type="button" name="button" id="autoClic"></button>
     </div>
-      <script src="assets/js/clicker.js"></script>
       <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous">
       </script>
+      <script src="assets/js/clicker.js"></script>
   </body>
 </html>
