@@ -13,7 +13,7 @@ function getRandomInt(max) {
 }
 
 function clicker(){
-  if (document.getElementById("clic").src == "file:///home/user/Bureau/Exercices/cookieClicker/assets/img/appear/appear.gif"){
+  if (document.getElementById("clic").src == "https://naelait.github.io/ClickTheZombie/assets/img/appear/appear.gif"){
     var atq = 0
   }else {
     var atq = 4 + (4)*multiplicateur;
